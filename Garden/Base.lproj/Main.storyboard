@@ -1,23 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="JhR-cQ-T5O">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Game View Controller-->
-        <scene sceneID="tXr-a1-R10">
+        <!--MainMenuViewController-->
+        <scene sceneID="mbI-jN-zNP">
             <objects>
-                <viewController id="BV1-FR-VrT" customClass="GameViewController" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
+                <viewController storyboardIdentifier="MainMenuViewController" title="MainMenuViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="JhR-cQ-T5O" customClass="MainMenuViewController" customModule="Garden" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jug-tH-idi" customClass="SKView">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <viewLayoutGuide key="safeArea" id="4qk-I5-YsI"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
+                        <viewLayoutGuide key="safeArea" id="4Yg-Cs-u70"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="IV0-Ab-1Xf" appends="YES" id="lNs-Mo-6vR"/>
+                        </connections>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rHn-UZ-4fw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="IV0-Ab-1Xf">
+                    <connections>
+                        <action selector="TapRecognizerWith_sender:" destination="JhR-cQ-T5O" id="ewy-rM-dIz"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="1298" y="72"/>
+        </scene>
+        <!--OutdoorSceneViewController-->
+        <scene sceneID="vsB-aV-eM7">
+            <objects>
+                <viewController storyboardIdentifier="OutdoorSceneViewController" title="OutdoorSceneViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Zah-iE-rxr" customClass="OutdoorSceneViewController" customModule="Garden" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="PU4-vq-IBc" customClass="SKView">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
+                        <viewLayoutGuide key="safeArea" id="Hez-P4-brO"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="H6B-mB-4uM" appends="YES" id="1zG-Kp-gAh"/>
+                            <outletCollection property="gestureRecognizers" destination="zlW-s9-hEy" appends="YES" id="3RM-IP-Bdf"/>
+                        </connections>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4VO-cz-FRF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="right" id="H6B-mB-4uM">
+                    <connections>
+                        <action selector="swipeRecognizer:" destination="Zah-iE-rxr" id="6te-Ec-OUS"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="left" id="hUj-dW-fLZ">
+                    <connections>
+                        <action selector="swipeRecognizer:" destination="Zah-iE-rxr" id="iAF-wL-9Rn"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <tapGestureRecognizer id="zlW-s9-hEy">
+                    <connections>
+                        <action selector="menuButtonWith_sender:" destination="Zah-iE-rxr" id="FwJ-Qs-TpV"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+        </scene>
+        <!--ZenViewController-->
+        <scene sceneID="XJW-ZE-cht">
+            <objects>
+                <viewController storyboardIdentifier="ZenViewController" title="ZenViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Lmf-gl-m4E" customClass="ZenViewController" customModule="Garden" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Jqr-kc-LTj" customClass="SKView">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
+                        <viewLayoutGuide key="safeArea" id="NzU-6D-w1Q"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="oGw-Y6-SJe" appends="YES" id="W77-kD-VmM"/>
+                        </connections>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="B6i-u4-Qlv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="oGw-Y6-SJe">
+                    <connections>
+                        <action selector="menuButtonWith_sender:" destination="Lmf-gl-m4E" id="au5-Xk-050"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
         </scene>
     </scenes>

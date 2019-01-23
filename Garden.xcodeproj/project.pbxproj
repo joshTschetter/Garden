@@ -7,16 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9C0B6D8C21F6DA010079CDF7 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0B6D8B21F6DA010079CDF7 /* MainMenu.swift */; };
+		9C0B6D9021F6DA400079CDF7 /* MainMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = 9C0B6D8F21F6DA400079CDF7 /* MainMenu.sks */; };
+		9C0B6D9221F6DA560079CDF7 /* ZenGarden.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0B6D9121F6DA560079CDF7 /* ZenGarden.swift */; };
+		9C0B6D9421F6DA750079CDF7 /* ZenGarden.sks in Resources */ = {isa = PBXBuildFile; fileRef = 9C0B6D9321F6DA750079CDF7 /* ZenGarden.sks */; };
+		9C0B6D9821F75A970079CDF7 /* OutdoorSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0B6D9721F75A970079CDF7 /* OutdoorSceneViewController.swift */; };
+		9C0B6D9A21F763B50079CDF7 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0B6D9921F763B50079CDF7 /* MainMenuViewController.swift */; };
+		9C0B6D9E21F773460079CDF7 /* ZenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0B6D9D21F773460079CDF7 /* ZenViewController.swift */; };
 		9CF542BC21F17CEB00AED130 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF542BB21F17CEB00AED130 /* AppDelegate.swift */; };
-		9CF542BE21F17CEB00AED130 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 9CF542BD21F17CEB00AED130 /* GameScene.sks */; };
+		9CF542BE21F17CEB00AED130 /* OutdoorScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 9CF542BD21F17CEB00AED130 /* OutdoorScene.sks */; };
 		9CF542C021F17CEB00AED130 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 9CF542BF21F17CEB00AED130 /* Actions.sks */; };
-		9CF542C221F17CEB00AED130 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF542C121F17CEB00AED130 /* GameScene.swift */; };
-		9CF542C421F17CEB00AED130 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF542C321F17CEB00AED130 /* GameViewController.swift */; };
+		9CF542C221F17CEB00AED130 /* OutdoorScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF542C121F17CEB00AED130 /* OutdoorScene.swift */; };
 		9CF542C721F17CEB00AED130 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CF542C521F17CEB00AED130 /* Main.storyboard */; };
 		9CF542C921F17CEE00AED130 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9CF542C821F17CEE00AED130 /* Assets.xcassets */; };
 		9CF542CC21F17CEE00AED130 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CF542CA21F17CEE00AED130 /* LaunchScreen.storyboard */; };
 		9CF542D721F17CEE00AED130 /* GardenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF542D621F17CEE00AED130 /* GardenTests.swift */; };
 		9CF542E221F17CEE00AED130 /* GardenUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF542E121F17CEE00AED130 /* GardenUITests.swift */; };
+		9CF542F221F181E000AED130 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF542F121F181E000AED130 /* ProgressBar.swift */; };
+		9CF542FA21F2522D00AED130 /* Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF542F921F2522C00AED130 /* Dimensions.swift */; };
+		9CF542FC21F27A6100AED130 /* Shop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF542FB21F27A6100AED130 /* Shop.swift */; };
+		9CF542FE21F27B4F00AED130 /* ShopItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF542FD21F27B4F00AED130 /* ShopItem.swift */; };
+		9CF5430021F2924E00AED130 /* Seed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF542FF21F2924E00AED130 /* Seed.swift */; };
+		9CF5430221F2933E00AED130 /* Pot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF5430121F2933E00AED130 /* Pot.swift */; };
+		9CF5430421F2D39100AED130 /* Plants.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9CF5430321F2D39100AED130 /* Plants.txt */; };
+		9CF5430621F52B0C00AED130 /* PlayerAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF5430521F52B0C00AED130 /* PlayerAccount.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,12 +51,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9C0B6D8B21F6DA010079CDF7 /* MainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
+		9C0B6D8F21F6DA400079CDF7 /* MainMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MainMenu.sks; sourceTree = "<group>"; };
+		9C0B6D9121F6DA560079CDF7 /* ZenGarden.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZenGarden.swift; sourceTree = "<group>"; };
+		9C0B6D9321F6DA750079CDF7 /* ZenGarden.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ZenGarden.sks; sourceTree = "<group>"; };
+		9C0B6D9721F75A970079CDF7 /* OutdoorSceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutdoorSceneViewController.swift; sourceTree = "<group>"; };
+		9C0B6D9921F763B50079CDF7 /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
+		9C0B6D9D21F773460079CDF7 /* ZenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZenViewController.swift; sourceTree = "<group>"; };
 		9CF542B821F17CEB00AED130 /* Garden.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Garden.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CF542BB21F17CEB00AED130 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9CF542BD21F17CEB00AED130 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		9CF542BD21F17CEB00AED130 /* OutdoorScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = OutdoorScene.sks; sourceTree = "<group>"; };
 		9CF542BF21F17CEB00AED130 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
-		9CF542C121F17CEB00AED130 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
-		9CF542C321F17CEB00AED130 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		9CF542C121F17CEB00AED130 /* OutdoorScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutdoorScene.swift; sourceTree = "<group>"; };
 		9CF542C621F17CEB00AED130 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9CF542C821F17CEE00AED130 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9CF542CB21F17CEE00AED130 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -53,6 +73,14 @@
 		9CF542DD21F17CEE00AED130 /* GardenUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GardenUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CF542E121F17CEE00AED130 /* GardenUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GardenUITests.swift; sourceTree = "<group>"; };
 		9CF542E321F17CEE00AED130 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9CF542F121F181E000AED130 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
+		9CF542F921F2522C00AED130 /* Dimensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dimensions.swift; sourceTree = "<group>"; };
+		9CF542FB21F27A6100AED130 /* Shop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shop.swift; sourceTree = "<group>"; };
+		9CF542FD21F27B4F00AED130 /* ShopItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopItem.swift; sourceTree = "<group>"; };
+		9CF542FF21F2924E00AED130 /* Seed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Seed.swift; sourceTree = "<group>"; };
+		9CF5430121F2933E00AED130 /* Pot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pot.swift; sourceTree = "<group>"; };
+		9CF5430321F2D39100AED130 /* Plants.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Plants.txt; path = ../../../../Plants.txt; sourceTree = "<group>"; };
+		9CF5430521F52B0C00AED130 /* PlayerAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerAccount.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,13 +132,27 @@
 			isa = PBXGroup;
 			children = (
 				9CF542BB21F17CEB00AED130 /* AppDelegate.swift */,
-				9CF542BD21F17CEB00AED130 /* GameScene.sks */,
+				9CF542BD21F17CEB00AED130 /* OutdoorScene.sks */,
+				9C0B6D9321F6DA750079CDF7 /* ZenGarden.sks */,
+				9C0B6D8F21F6DA400079CDF7 /* MainMenu.sks */,
 				9CF542BF21F17CEB00AED130 /* Actions.sks */,
-				9CF542C121F17CEB00AED130 /* GameScene.swift */,
-				9CF542C321F17CEB00AED130 /* GameViewController.swift */,
+				9CF542C121F17CEB00AED130 /* OutdoorScene.swift */,
+				9C0B6D8B21F6DA010079CDF7 /* MainMenu.swift */,
+				9C0B6D9121F6DA560079CDF7 /* ZenGarden.swift */,
+				9CF5430521F52B0C00AED130 /* PlayerAccount.swift */,
+				9CF542F921F2522C00AED130 /* Dimensions.swift */,
+				9CF542F121F181E000AED130 /* ProgressBar.swift */,
+				9CF542FF21F2924E00AED130 /* Seed.swift */,
+				9CF5430121F2933E00AED130 /* Pot.swift */,
+				9CF542FB21F27A6100AED130 /* Shop.swift */,
+				9CF542FD21F27B4F00AED130 /* ShopItem.swift */,
+				9C0B6D9921F763B50079CDF7 /* MainMenuViewController.swift */,
+				9C0B6D9721F75A970079CDF7 /* OutdoorSceneViewController.swift */,
+				9C0B6D9D21F773460079CDF7 /* ZenViewController.swift */,
 				9CF542C521F17CEB00AED130 /* Main.storyboard */,
-				9CF542C821F17CEE00AED130 /* Assets.xcassets */,
 				9CF542CA21F17CEE00AED130 /* LaunchScreen.storyboard */,
+				9CF542C821F17CEE00AED130 /* Assets.xcassets */,
+				9CF5430321F2D39100AED130 /* Plants.txt */,
 				9CF542CD21F17CEE00AED130 /* Info.plist */,
 			);
 			path = Garden;
@@ -238,10 +280,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9CF5430421F2D39100AED130 /* Plants.txt in Resources */,
 				9CF542C721F17CEB00AED130 /* Main.storyboard in Resources */,
-				9CF542BE21F17CEB00AED130 /* GameScene.sks in Resources */,
+				9C0B6D9421F6DA750079CDF7 /* ZenGarden.sks in Resources */,
+				9CF542BE21F17CEB00AED130 /* OutdoorScene.sks in Resources */,
 				9CF542C921F17CEE00AED130 /* Assets.xcassets in Resources */,
 				9CF542CC21F17CEE00AED130 /* LaunchScreen.storyboard in Resources */,
+				9C0B6D9021F6DA400079CDF7 /* MainMenu.sks in Resources */,
 				9CF542C021F17CEB00AED130 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -267,9 +312,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9CF542C221F17CEB00AED130 /* GameScene.swift in Sources */,
-				9CF542C421F17CEB00AED130 /* GameViewController.swift in Sources */,
+				9C0B6D9221F6DA560079CDF7 /* ZenGarden.swift in Sources */,
+				9CF542C221F17CEB00AED130 /* OutdoorScene.swift in Sources */,
+				9CF542F221F181E000AED130 /* ProgressBar.swift in Sources */,
+				9C0B6D9A21F763B50079CDF7 /* MainMenuViewController.swift in Sources */,
+				9CF542FE21F27B4F00AED130 /* ShopItem.swift in Sources */,
+				9CF542FA21F2522D00AED130 /* Dimensions.swift in Sources */,
+				9CF5430221F2933E00AED130 /* Pot.swift in Sources */,
+				9C0B6D9821F75A970079CDF7 /* OutdoorSceneViewController.swift in Sources */,
+				9C0B6D8C21F6DA010079CDF7 /* MainMenu.swift in Sources */,
 				9CF542BC21F17CEB00AED130 /* AppDelegate.swift in Sources */,
+				9CF5430021F2924E00AED130 /* Seed.swift in Sources */,
+				9C0B6D9E21F773460079CDF7 /* ZenViewController.swift in Sources */,
+				9CF5430621F52B0C00AED130 /* PlayerAccount.swift in Sources */,
+				9CF542FC21F27A6100AED130 /* Shop.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

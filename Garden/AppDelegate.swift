@@ -16,6 +16,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        let AllTimeTaps = UserDefaults.standard
+        let taps = ["TapKey" : ""]
+        AllTimeTaps.register(defaults: taps)
+        
+        let AccountBalance = UserDefaults.standard
+        let balance = ["BalanceKey" : ""]
+        AccountBalance.register(defaults: balance)
+        
+        let potInventoryLevels = UserDefaults.standard
+        let potLevels = ["potLevelKey" : ""]
+        potInventoryLevels.register(defaults: potLevels)
+        
+        let potInventorySprites = UserDefaults.standard
+        let potSprites = ["potSpriteKey" : ""]
+        potInventorySprites.register(defaults: potSprites)
+        
+        let firstTime = UserDefaults.standard
+        let time = ["firstKey" : ""]
+        firstTime.register(defaults: time)
+        
         return true
     }
 
@@ -38,9 +58,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:
+        
+        
+        
+        
+        
     }
 
 
 }
+
 
