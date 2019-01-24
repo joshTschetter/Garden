@@ -44,7 +44,7 @@ class Seed{
         
         env.addChild(seedSprite)
         seedSprite.position = pos
-        
+        shinyNewSeed(scene: env)
     }
     
     func getSprite()-> SKSpriteNode {
@@ -52,6 +52,7 @@ class Seed{
     }
     func click(){
         self.clicked = true
+        seedSprite.removeAllActions()
     }
     func isClicked()-> Bool {
         return clicked
@@ -82,6 +83,16 @@ class Seed{
         seedSprite.removeFromParent()
         display.addChild(tempNode)
         display.addChild(tempTextNode)
+        
+    }
+    
+    func shinyNewSeed(scene: OutdoorScene){
+        let SEEDDROP = SKAction.moveTo(y: -100, duration: TimeInterval(2))
+        let tantalizingone = SKAction.scale(by: 0.75, duration: TimeInterval(2))
+        let tantalizingtwo = SKAction.scale(by: 1.3333333333333333333, duration: TimeInterval(2))
+        let tantalizingAction = SKAction.sequence([tantalizingone, tantalizingtwo])
+        seedSprite.run(SEEDDROP)
+        seedSprite.run(SKAction.repeatForever(tantalizingAction))
         
     }
 }

@@ -1,7 +1,9 @@
 //
 //  ShopItem.swift
 //  Garden
-//
+//  ===========================================
+//  an object that stores information needed to appear in "Shop"
+//  ===========================================
 //  Created by 64911 on 1/18/19.
 //  Copyright © 2019 64911. All rights reserved.
 //
@@ -11,11 +13,12 @@ import SpriteKit
 
 class ShopItem {
 
-    
+
     private var itemSprite : SKSpriteNode
     
     private var itemPrice : Double
     
+    // itemType will always be matched with an available item for purchase
     private var itemType : String
     
     private var imageName : String
@@ -68,16 +71,23 @@ class ShopItem {
     }
     
     func getPrice()-> Double {
+        
         return self.itemPrice
     }
     
     func getType()-> String {
+        
         return itemType
     }
+    
     func getImageName()-> String {
+        
         return imageName
     }
+    
     func getPotLevel()-> Int {
+        
         return associatedPotValue
     }
+    
 }

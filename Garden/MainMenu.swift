@@ -29,8 +29,8 @@ class MainMenu: SKScene {
         background.size = CGSize(width: Dimensions().screenWidth, height: Dimensions().screenHeight)
         background.zPosition = -1
         mainMenuLogo.position = CGPoint(x: 0, y: Dimensions().screenHeight/2 - mainMenuLogo.size.height/2 - 25)
-        myGardenButton.position = CGPoint(x: 0, y: mainMenuLogo.position.y - 200)
-        zenGardenButton.position = CGPoint(x: 0, y: mainMenuLogo.position.y - 400)
+        myGardenButton.position = CGPoint(x: 0, y: mainMenuLogo.position.y - 400)
+        zenGardenButton.position = CGPoint(x: 0, y: mainMenuLogo.position.y - 600)
         self.addChild(mainMenuLogo)
         self.addChild(myGardenButton)
         self.addChild(zenGardenButton)

@@ -1,9 +1,12 @@
 //
 //  MainMenuViewController.swift
 //  Garden
-//
-//  Created by 64911 on 1/22/19.
-//  Copyright © 2019 64911. All rights reserved.
+//  ============================================
+//  A ViewController that accepts built-in Gesture Controls and uses the input to manipulate
+//  the MainMenu class.
+//  =============================================
+//  Created by Josh Tschetter on 1/22/19.
+//  Copyright © 2019 Josh Tschetter. All rights reserved.
 //
 
 
@@ -12,28 +15,40 @@ import SpriteKit
 import GameplayKit
 
 class MainMenuViewController: UIViewController{
+    
+    // instantiates MainMenu Scene to be manipulated
     var scene2 = MainMenu()
    
     
+    
+    // a tap gesture recognizer to manipulate MainMenu class
     @IBAction func TapRecognizer(_sender: UITapGestureRecognizer){
 
-        print("touch recognized in viewController")
-        print(self.scene2)
-        print(self.scene2.Garden())
+        print("touch recognized in MainMenuviewController")
+      
+        // checks to see if the garden button within the scene has been pressed
         if (self.scene2.Garden()){
-            print("Aa")
+            
+            print("Garden ViewController Presented")
+            
+            // instantiates a new ViewController initialized as the OutDoorScene
             let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)            
             let resultViewController = storyBoard.instantiateViewController(withIdentifier: "OutdoorSceneViewController") as! OutdoorSceneViewController
             
+            // presents the newly created ViewController
             self.present(resultViewController, animated:true, completion:nil)
         }
         
+        // checks to see if the zen button within the scene has been pressed
         if (self.scene2.Zen()){
-            print("Bb")
-            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
             
+            print("Zen ViewController Presented")
+            
+            // instantiates a new ViewController initialized as the ZenScene
+            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
             let resultViewController = storyBoard.instantiateViewController(withIdentifier: "ZenViewController") as! ZenViewController
             
+            // presents the newly created ViewController
             self.present(resultViewController, animated:true, completion:nil)
         }
     
@@ -45,7 +60,8 @@ class MainMenuViewController: UIViewController{
         super.viewDidLoad()
         
        
-        print("ss")
+        print("MainMenu viewDidLoad")
+        
         if let scene = GKScene(fileNamed: "MainMenu") {
             
             // Get the SKScene from the loaded GKScene
@@ -64,18 +80,7 @@ class MainMenuViewController: UIViewController{
                 }
             }
         }
-//        if (self.view as! SKView?) != nil {
-//            print("dd")
-//            self.scene? = MainMenu(fileNamed: "MainMenu")!
-//            if let view = self.view as! SKView? {
-//                print("ee")
-//                view.presentScene(self.scene)
-//                view.ignoresSiblingOrder = true
-//                view.showsFPS = true
-//                view.showsNodeCount = true
-//            }
-//        }
-        
+
         
     }
     
@@ -91,15 +96,5 @@ class MainMenuViewController: UIViewController{
         return false
     }
     
-    
-    
-    
-    func gardenTime(){
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        
-        let resultViewController = storyBoard.instantiateViewController(withIdentifier: "OutdoorSceneViewController") as! OutdoorSceneViewController
-        
-        self.present(resultViewController, animated:true, completion:nil)
-    }
 }
 

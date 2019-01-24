@@ -62,18 +62,21 @@ class OutdoorScene: SKScene {
     private var background = SKSpriteNode(imageNamed: "outdoorbg")
     private var menuButton = SKSpriteNode(imageNamed: "menubutton")
     // temporary replacement of a combination of the pot and plant objects
-    private var firstPlant = Pot(sprite: "emptypot", level: 0)
+    private var firstPlant = Pot(sprite: "emptypot", level: 0, isPlanted: false)
     var succulentArray = ["sproutlingplant", "succulentone", "succulenttwo"]
     // the user's stored inventory
     private var potInventory = [Pot]()
     private var potInventorySpacer = 0
     private var seedInventory = [Seed]()
+    private var OutdoorMenu = PauseMenu()
+    private var tutorial = Tutorial()
     // Creates the "Shop" for the outdoor scene
     private var outdoorStore = Shop(itemsAvailable: [ShopItem(sprite: "seed", type: "seed" ,price: 5), ShopItem(sprite: "emptypot", type: "pot", price: 5000, potLevel: 0)], background: "outdoorstoreopaquebg", spriteReciever: "outdoorspritereciever", shopbg: "bgoutdoor2")
     
-    // distinguishes normal gameplay from shop
+    // distinguishes normal gameplay from shop/tutorial/menu
     private var inStore = false
-    
+    private var inTutorial = false
+    private var inMenu = false
     // Sprites unique to the Outdoor Scene
     private var shopButton = SKSpriteNode(imageNamed: "shopbutton")
     
@@ -95,7 +98,7 @@ class OutdoorScene: SKScene {
     var coinCounter = 0
     var upgradedPlant = ""
     var notfirstTimeLaunching = false
-    var menu = false
+    var backtomainmenu = false
     
     // Main function, runs once upon scene load
     override func sceneDidLoad() {
@@ -114,7 +117,10 @@ class OutdoorScene: SKScene {
         if !notfirstTimeLaunching {
         potInventory.append(firstPlant)
         UserDefaults.standard.set(true, forKey: "firstKey")
-          
+        UserDefaults.standard.set(false , forKey: "potPlantedKey")
+        UserDefaults.standard.set(0, forKey: "potLevelKey")
+        UserDefaults.standard.set("", forKey: "potSpriteKey")
+        tutorial.run(scene: self)
         }
         
             
@@ -122,7 +128,7 @@ class OutdoorScene: SKScene {
         else {
          
             
-            potInventory = initializePotInventory(sA: UserDefaults.standard.array(forKey: "potSpriteKey") as! [String], lA: UserDefaults.standard.array(forKey: "potLevelKey") as! [Int])
+            potInventory = initializePotInventory(sA: UserDefaults.standard.array(forKey: "potSpriteKey") as! [String], lA: UserDefaults.standard.array(forKey: "potLevelKey") as! [Int], pA: UserDefaults.standard.array(forKey: "potPlantedKey") as! [Bool])
         
         }
      
@@ -186,16 +192,17 @@ class OutdoorScene: SKScene {
         // sets position of that first touch to a variable
         let position = touch.location(in: self)
         
-            
-        // if the user is in the normal gameplay screen
-        if !inStore {
-            
             for item in seedInventory {
                 if item.getSprite().contains(position){
                     item.click()
                 }
                 
             }
+            
+        // if the user is in the normal gameplay screen
+        
+        if !inStore && !inMenu && !inTutorial{
+
         // if the pot currently being displayed is tapped
         if potInventory[potDisplayed].contains(p: position) && potInventory[potDisplayed].isPlanted(){
             
@@ -218,8 +225,9 @@ class OutdoorScene: SKScene {
         }
         //END OF SUCCULENT TOUCHED //
             if menuButton.contains(position){
-                menu = true
-                print("snovdndbf")
+                print("menuButtonPressed")
+                inMenu = true
+                OutdoorMenu.addToScene(scene: self)
             }
         // if the store button is tapped
         if shopButton.contains(position){
@@ -237,10 +245,65 @@ class OutdoorScene: SKScene {
             }
         // END OF IN NORMAL GAMEPLAY TOUCHES //
             }
+        else if inMenu {
             
-        
+            if !OutdoorMenu.isMenuClicked(p: position){
+                inMenu = false
+                OutdoorMenu.removeFromScene()
+            }
+          inTutorial = OutdoorMenu.tutorialActivated(p: position)
+            if inTutorial {
+                  tutorial.run(scene: self)
+                  inMenu = false
+                  OutdoorMenu.removeFromScene()
+            }
+           
+          backtomainmenu =  OutdoorMenu.backToMenuClicked(p: position)
+            if backtomainmenu {
+                inMenu = false
+                OutdoorMenu.removeFromScene()
+            }
+
+        }
+         if inTutorial{
+            print("benchmarkone")
+            tutorial.passCurrentInstruction(scene: self)
+            if tutorial.canWater() {
+                if potInventory[potDisplayed].contains(p: position) && potInventory[potDisplayed].isPlanted(){
+                    
+                    account.gainAggresively(multiplier: Double(potInventory[potDisplayed].getLevel() + 1) ,potPosition: potInventory[potDisplayed].getPosition(), potDimensions: potInventory[potDisplayed].getSize(), env: self)
+                    print(potInventory[potDisplayed].getLevel())
+                    if potInventory[potDisplayed].getLevel() == 2 {
+                        print("okay")
+                        tutorial.switchInstrucs(scene: self)
+                    }
+                    if potInventory[potDisplayed].getLevel()/10 < succulentArray.count - 1 {
+                        upgradedPlant = succulentArray[potInventory[potDisplayed].getLevel()/10]
+                        if potInventory[potDisplayed].getLevel() % 10 == 0 && potInventory[potDisplayed].getLevel() != 0 {
+                            print("WHAT")
+                        tutorial.waterPot(scene: self)
+                        }
+                        //                account.forceClearSprite()
+                    }
+                    else {
+                        upgradedPlant = succulentArray[succulentArray.count - 1]
+                    }
+                    // activates the touched function in the plant class and sets the level variable
+                    potInventory[potDisplayed] = potInventory[potDisplayed].tapped(nextUpgradeSprite: upgradedPlant, env: self, cloudPoint: waterPipe.position)
+                    
+                    
+                    
+                    // adds one touch to the running counter
+                    touchCount = touchCount + 1
+                }
+            }
+            if !tutorial.inProgress(){
+                tutorial.removeFromScene()
+                inTutorial = false 
+            }
+        }
         // touches recorded in the shop
-            else {
+        else if inStore{
                 // runs a checker to see if the shop will be exited with the touch
                 if outdoorStore.didExitShop(p: position) {
                     // shop deactivation sequence
@@ -292,6 +355,10 @@ class OutdoorScene: SKScene {
                     potInventory[potDisplayed].plant()
                     item.plant(display: self)
                     seedInventory.remove(at: counter)
+                    
+                    if inTutorial {
+                        tutorial.plantSeed(scene: self)
+                    }
                 }
                 counter = counter + 1
             }
@@ -300,10 +367,10 @@ class OutdoorScene: SKScene {
         
         
         // if you aren't in the store, this serves animation purposes
-       print("instore = " + String(inStore))
+       
         if !inStore {
      potInventory[potDisplayed].released()
-    print("okchecker")
+  
             if coinCounter % 50 == 0 {
         account.clearSprite()
             }
@@ -319,13 +386,17 @@ class OutdoorScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
        
+       
+       inTutorial =  tutorial.inProgress()
        UserDefaults.standard.set(account.balance(), forKey: "AccountBalance")
+       UserDefaults.standard.set(savePotInventory().plantedArray, forKey: "potPlantedKey")
        
         if secondCounter % 50 == 0 {
             
             account.gainPassively()
             UserDefaults.standard.set(savePotInventory().spriteArray, forKey: "potSpriteKey")
             UserDefaults.standard.set(savePotInventory().levelArray, forKey: "potLevelKey")
+            
         }
         
         
@@ -333,7 +404,7 @@ class OutdoorScene: SKScene {
     }
     
     func shiftRight(spacer: Int){
-        print(potInventory.count)
+      
         print(potDisplayed)
         if actionDone(){
         if potInventory.count > 1{
@@ -351,8 +422,7 @@ class OutdoorScene: SKScene {
     }
     }
     func shiftLeft(spacer: Int){
-        print(potInventory.count)
-        print(potDisplayed)
+       
         if actionDone() {
         if potInventory.count > 1 {
         if potDisplayed > 0 {
@@ -381,30 +451,32 @@ class OutdoorScene: SKScene {
         return false
     }
     func Menu()-> Bool {
-        print("sjsjsjsjsjsjj")
-        return menu
+     
+        return backtomainmenu
         
     }
     func getPotInventory()-> [Pot]{
     return potInventory
     }
     
-    func savePotInventory()-> (spriteArray: [String], levelArray: [Int]){
+    func savePotInventory()-> (spriteArray: [String], levelArray: [Int], plantedArray: [Bool]){
         var sA = [String]()
         var lA = [Int]()
+        var pA = [Bool]()
         for item in potInventory{
             sA.append(item.formatForSave().sprite)
             lA.append(item.formatForSave().level)
+            pA.append(item.formatForSave().isPlanted)
         }
-        return (sA, lA)
+        return (sA, lA, pA)
     }
     
-    func initializePotInventory(sA: [String], lA: [Int])-> [Pot]{
+    func initializePotInventory(sA: [String], lA: [Int], pA: [Bool])-> [Pot]{
         
         var counter = 0
         var lazyPotArray = [Pot]()
         for item in sA {
-            let lazyPot = Pot(sprite: item, level: lA[counter])
+            let lazyPot = Pot(sprite: item, level: lA[counter], isPlanted: pA[counter])
             if lA[counter] > 0 {
              lazyPot.plant()
             }
@@ -413,6 +485,12 @@ class OutdoorScene: SKScene {
             counter = counter  + 1
         }
         return lazyPotArray
+    }
+    
+    func addTutorialSeed(){
+        seedInventory.append(Seed(sprite: "seed"))
+        seedInventory[seedInventory.count - 1].addToHomeScreen(env: self, pos: CGPoint(x: 0, y: -1000))
+        seedInventory[seedInventory.count - 1].shinyNewSeed(scene: self)
     }
 
 }

@@ -46,24 +46,25 @@
                         <viewLayoutGuide key="safeArea" id="Hez-P4-brO"/>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="H6B-mB-4uM" appends="YES" id="1zG-Kp-gAh"/>
-                            <outletCollection property="gestureRecognizers" destination="zlW-s9-hEy" appends="YES" id="3RM-IP-Bdf"/>
+                            <outletCollection property="gestureRecognizers" destination="cwe-ba-VkH" appends="YES" id="E3j-m5-BJT"/>
+                            <outletCollection property="gestureRecognizers" destination="hUj-dW-fLZ" appends="YES" id="kkN-hn-opI"/>
                         </connections>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4VO-cz-FRF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <swipeGestureRecognizer direction="right" id="H6B-mB-4uM">
+                <swipeGestureRecognizer delaysTouchesEnded="NO" direction="right" id="H6B-mB-4uM">
                     <connections>
-                        <action selector="swipeRecognizer:" destination="Zah-iE-rxr" id="6te-Ec-OUS"/>
+                        <action selector="SwipeRecognizer:" destination="Zah-iE-rxr" id="Dlw-rW-xZb"/>
                     </connections>
                 </swipeGestureRecognizer>
-                <swipeGestureRecognizer direction="left" id="hUj-dW-fLZ">
+                <swipeGestureRecognizer delaysTouchesEnded="NO" direction="left" id="hUj-dW-fLZ">
                     <connections>
-                        <action selector="swipeRecognizer:" destination="Zah-iE-rxr" id="iAF-wL-9Rn"/>
+                        <action selector="SwipeRecognizer:" destination="Zah-iE-rxr" id="bdn-Zm-T5n"/>
                     </connections>
                 </swipeGestureRecognizer>
-                <tapGestureRecognizer id="zlW-s9-hEy">
+                <tapGestureRecognizer cancelsTouchesInView="NO" delaysTouchesEnded="NO" id="cwe-ba-VkH">
                     <connections>
-                        <action selector="menuButtonWith_sender:" destination="Zah-iE-rxr" id="FwJ-Qs-TpV"/>
+                        <action selector="pressedMenuWith_sender:" destination="Zah-iE-rxr" id="5DQ-a1-XvY"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -78,13 +79,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <viewLayoutGuide key="safeArea" id="NzU-6D-w1Q"/>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="oGw-Y6-SJe" appends="YES" id="W77-kD-VmM"/>
-                        </connections>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B6i-u4-Qlv" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="oGw-Y6-SJe">
+                <tapGestureRecognizer delaysTouchesEnded="NO" id="oGw-Y6-SJe">
                     <connections>
                         <action selector="menuButtonWith_sender:" destination="Lmf-gl-m4E" id="au5-Xk-050"/>
                     </connections>

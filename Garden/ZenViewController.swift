@@ -1,9 +1,12 @@
 //
 //  ZenViewController.swift
 //  Garden
-//
-//  Created by 64911 on 1/22/19.
-//  Copyright © 2019 64911. All rights reserved.
+//  ===========================================
+//  a ViewController that accepts built-in Gesture Controls and uses the input to manipulate
+//  the ZenGarden class.
+//  ===========================================
+//  Created by Josh Tschetter on 1/22/19.
+//  Copyright © 2019 Josh Tschetter. All rights reserved.
 //
 
 import UIKit
@@ -12,8 +15,10 @@ import GameplayKit
 
 class ZenViewController: UIViewController{
 
+    // instantiates ZenGarden class to be manipulated
     var scene2 =  ZenGarden()
     
+    // accepts input from UITapGestureRecognizer to manipulate ZenGarden class
     @IBAction func menuButton(_sender: UITapGestureRecognizer){
         print("tapped")
         if ((self.scene2.Menu())){
@@ -26,7 +31,10 @@ class ZenViewController: UIViewController{
         
     }
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        
+        print("ZenViewControllerdidLoad")
         
         if let scene = GKScene(fileNamed: "ZenGarden") {
             

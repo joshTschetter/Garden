@@ -1,9 +1,12 @@
 //
 //  Pot.swift
 //  Garden
-//
-//  Created by 64911 on 1/18/19.
-//  Copyright © 2019 64911. All rights reserved.
+//  ===========================================
+//  the foundation of the garden game, a pot is an object that exists to represent a plant, and stores
+//  every variable the object needs to interact with the rest of the program.
+//  ===========================================
+//  Created by Josh Tschetter on 1/18/19.
+//  Copyright © 2019 Josh Tschetter. All rights reserved.
 //
 
 import UIKit
@@ -28,13 +31,13 @@ class Pot  {
     private var potLevelProgressBar : ProgressBar
 
     
-    private var planted = false 
+    private var planted : Bool
     
     
     private var spriteStringName = ""
     private var potisReal : Bool
     
-    init (sprite: String, level: Int ){
+    init (sprite: String, level: Int, isPlanted: Bool){
         
         
         // sets the pot sprite as the image sent by the constructor.
@@ -48,11 +51,16 @@ class Pot  {
         
         
         self.potLevel = level
+        if potLevel == 0 {
+        self.potLevelLabel = SKLabelNode(text: "")
+        }
+        else {
         self.potLevelLabel = SKLabelNode(text: String(potLevel))
-        
+        }
         self.potLevelProgressBar = ProgressBar(currentProgress: 0, position: CGPoint(x: potSprite.position.x - potSize.x/2, y: potSprite.position.y + potSize.y/2 + 150), finalsize: CGPoint(x: potSize.x, y: 30), barsprite: "opaquebar")
         
         self.potisReal = true
+        self.planted = isPlanted
         
     }
     
@@ -72,7 +80,7 @@ class Pot  {
         
         self.potLevelProgressBar = ProgressBar(currentProgress: 0, position: CGPoint(x: potSprite.position.x - potSize.x/2, y: potSprite.position.y + potSize.y/2 + 150), finalsize: CGPoint(x: potSize.x, y: 30), barsprite: "opaquebar")
         
-        
+        self.planted = false
         self.potisReal = false
     }
     
@@ -184,15 +192,18 @@ class Pot  {
             }
         }
     }
+    
+    // function to completely clear the food source, called while user is switching plants
     func clearfeed(){
         for item in food {
             if item.position.y != -100000 {
                 
-                // puts the sprite back into the queue
+            
                 item.position.y = -1000000
             }
         }
     }
+    // function called to check if plant is available for growth, and if it is, grows and returns it as a pot object
     func growifCan(potSprite: String, env: OutdoorScene, loc: CGPoint, cloudPoint: CGPoint)-> Pot {
         if potLevelProgressBar.updateProgress(increment: 5){
             potLevelProgressBar.resetProgress()
@@ -211,12 +222,12 @@ class Pot  {
         }
     }
     
+    // function used to "upgrade" a plant to the next sprite
     func upgradePot(potSprite: String, display: OutdoorScene, cloudPoint: CGPoint)-> Pot{
-        let newPot = Pot(sprite: potSprite, level: self.potLevel)
+        let newPot = Pot(sprite: potSprite, level: self.potLevel, isPlanted: true)
         levelUpAnimation(display: display)
        
         //proportionally positions taking into account image height gain
-
         newPot.addToHomeScreen(env: display, p: CGPoint(x: self.potSprite.position.x, y: self.potSprite.position.y + (newPot.potSize.y - self.potSize.y)/2), cloudPoint: cloudPoint)
         newPot.plant()
         self.potSprite.removeFromParent()
@@ -224,43 +235,21 @@ class Pot  {
         for item in self.food {
             item.removeFromParent()
         }
+        
         return newPot
-    }
-    func getPotSprite()-> SKSpriteNode {
-        return self.potSprite
-    }
-    func getLevel()-> Int {
-        return potLevel
-    }
-    func getPosition()-> CGPoint {
-        return potSprite.position
-    }
-    func getSize()-> CGPoint {
-        return potSize 
+        
     }
     
-    func isReal()-> Bool {
-        return potisReal
-    }
-    
+    // allows a pot object to take an SKAction and run it for all related spriteNodes
     func run (action: SKAction, time: TimeInterval){
         
         self.potSprite.run(action)
         self.potLevelLabel.run(action)
         self.potLevelProgressBar.resetProgress()
+        
     }
     
-    func formatForSave()-> (sprite: String, level: Int){
-        print (spriteStringName, potLevel)
-        return (spriteStringName, potLevel)
-    }
-    
-    func plant(){
-        planted = true
-    }
-    func isPlanted()-> Bool{
-        return planted 
-    }
+    // animation ran when the plant "levels up"
     func levelUpAnimation(display: OutdoorScene){
         
         let actionOne = SKAction.colorize(with: .green, colorBlendFactor: 0, duration: (1))
@@ -283,7 +272,57 @@ class Pot  {
         tempTextNode.run(labelactiontwo)
         display.addChild(tempNode)
         display.addChild(tempTextNode)
-
         
     }
+    
+    // tuple that returns the values attributed to a pot that are saved
+    func formatForSave()-> (sprite: String, level: Int, isPlanted: Bool){
+       
+        return (spriteStringName, potLevel, planted)
+    }
+    
+    // getters and setters
+    
+    func getPotSprite()-> SKSpriteNode {
+        
+        return self.potSprite
+        
+    }
+    
+    func getLevel()-> Int {
+        
+        return potLevel
+        
+    }
+    
+    func getPosition()-> CGPoint {
+        
+        return potSprite.position
+        
+    }
+    
+    func getSize()-> CGPoint {
+        
+        return potSize
+        
+    }
+    
+    func isReal()-> Bool {
+        
+        return potisReal
+        
+    }
+    
+    func plant(){
+        
+        planted = true
+        
+    }
+    
+    func isPlanted()-> Bool{
+        
+        return planted
+        
+    }
+  
 }

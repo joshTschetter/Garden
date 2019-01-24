@@ -1,9 +1,12 @@
 //
 //  Shop.swift
 //  Garden
-//
-//  Created by 64911 on 1/18/19.
-//  Copyright © 2019 64911. All rights reserved.
+//  ===========================================
+//  an enviornment composed of graphics and an array of items available for purchase.
+//  Object will communicate with enviornment in which it is placed to facilitate purchases.
+//  ===========================================
+//  Created by Josh Tschetter on 1/18/19.
+//  Copyright © 2019 Josh Tschetter. All rights reserved.
 //
 
 import UIKit
@@ -119,6 +122,7 @@ class Shop {
         exitButton.removeFromParent()
     }
     
+    // function called to see if tap was contained within the permitted shop environment
     func didExitShop (p: CGPoint)-> Bool {
         
         return (shopBackground.contains(p) && !shopEnviornment.contains(p)) || exitButton.contains(p)
@@ -126,6 +130,7 @@ class Shop {
         
     }
     
+    // function that will be called to scroll through the options in the shop
     func scrollDownInShop (increment: CGFloat){
         
         
@@ -133,6 +138,9 @@ class Shop {
         
     }
     
+    
+    // called at every touch when the shop is active, uses a touple to return the purchased item along
+    // with the new account balance. If conditions to buy the item are not met, function will return a fake pot that will be ignored and the same balance that was sent.
     func potPurchaseCheck (touch: CGPoint, currentBalance: Double)-> (purchasedPot: Pot, newAccountBalance: Double) {
         
         let fakePot = Pot(isFake: true)
@@ -141,9 +149,10 @@ class Shop {
             if item.getSprite().contains(touch){
                 if item.getPrice() < currentBalance {
                 if item.getType() == "pot" {
-                    return (Pot(sprite: item.getImageName(), level: item.getPotLevel()), currentBalance - item.getPrice())
+                    return (Pot(sprite: item.getImageName(), level: item.getPotLevel(), isPlanted: false), currentBalance - item.getPrice())
                     
                 }
+                    
                 }
             }
             
@@ -151,6 +160,8 @@ class Shop {
         return (fakePot, currentBalance)
         
     }
+    
+    // called at every tap to see if seed has been purchased, same as potPurchase check, returns fake seed
     func seedPurchaseCheck (touch: CGPoint, currentBalance: Double)-> (purchasedSeed: Seed , newAccountBalance: Double) {
         let fakeSeed = Seed(fake: true)
         for item in itemsForSale {
@@ -166,4 +177,6 @@ class Shop {
         
         return (fakeSeed, currentBalance)
     }
+    
+    
 }

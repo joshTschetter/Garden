@@ -14,6 +14,8 @@
 		9C0B6D9821F75A970079CDF7 /* OutdoorSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0B6D9721F75A970079CDF7 /* OutdoorSceneViewController.swift */; };
 		9C0B6D9A21F763B50079CDF7 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0B6D9921F763B50079CDF7 /* MainMenuViewController.swift */; };
 		9C0B6D9E21F773460079CDF7 /* ZenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0B6D9D21F773460079CDF7 /* ZenViewController.swift */; };
+		9C91CDA421F948D5005C9031 /* Tutorial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C91CDA321F948D5005C9031 /* Tutorial.swift */; };
+		9C91CDA621F94D50005C9031 /* PauseMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C91CDA521F94D50005C9031 /* PauseMenu.swift */; };
 		9CF542BC21F17CEB00AED130 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF542BB21F17CEB00AED130 /* AppDelegate.swift */; };
 		9CF542BE21F17CEB00AED130 /* OutdoorScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 9CF542BD21F17CEB00AED130 /* OutdoorScene.sks */; };
 		9CF542C021F17CEB00AED130 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 9CF542BF21F17CEB00AED130 /* Actions.sks */; };
@@ -58,6 +60,8 @@
 		9C0B6D9721F75A970079CDF7 /* OutdoorSceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutdoorSceneViewController.swift; sourceTree = "<group>"; };
 		9C0B6D9921F763B50079CDF7 /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
 		9C0B6D9D21F773460079CDF7 /* ZenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZenViewController.swift; sourceTree = "<group>"; };
+		9C91CDA321F948D5005C9031 /* Tutorial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tutorial.swift; sourceTree = "<group>"; };
+		9C91CDA521F94D50005C9031 /* PauseMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseMenu.swift; sourceTree = "<group>"; };
 		9CF542B821F17CEB00AED130 /* Garden.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Garden.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CF542BB21F17CEB00AED130 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9CF542BD21F17CEB00AED130 /* OutdoorScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = OutdoorScene.sks; sourceTree = "<group>"; };
@@ -137,6 +141,7 @@
 				9C0B6D8F21F6DA400079CDF7 /* MainMenu.sks */,
 				9CF542BF21F17CEB00AED130 /* Actions.sks */,
 				9CF542C121F17CEB00AED130 /* OutdoorScene.swift */,
+				9C91CDA521F94D50005C9031 /* PauseMenu.swift */,
 				9C0B6D8B21F6DA010079CDF7 /* MainMenu.swift */,
 				9C0B6D9121F6DA560079CDF7 /* ZenGarden.swift */,
 				9CF5430521F52B0C00AED130 /* PlayerAccount.swift */,
@@ -152,6 +157,7 @@
 				9CF542C521F17CEB00AED130 /* Main.storyboard */,
 				9CF542CA21F17CEE00AED130 /* LaunchScreen.storyboard */,
 				9CF542C821F17CEE00AED130 /* Assets.xcassets */,
+				9C91CDA321F948D5005C9031 /* Tutorial.swift */,
 				9CF5430321F2D39100AED130 /* Plants.txt */,
 				9CF542CD21F17CEE00AED130 /* Info.plist */,
 			);
@@ -316,6 +322,7 @@
 				9CF542C221F17CEB00AED130 /* OutdoorScene.swift in Sources */,
 				9CF542F221F181E000AED130 /* ProgressBar.swift in Sources */,
 				9C0B6D9A21F763B50079CDF7 /* MainMenuViewController.swift in Sources */,
+				9C91CDA421F948D5005C9031 /* Tutorial.swift in Sources */,
 				9CF542FE21F27B4F00AED130 /* ShopItem.swift in Sources */,
 				9CF542FA21F2522D00AED130 /* Dimensions.swift in Sources */,
 				9CF5430221F2933E00AED130 /* Pot.swift in Sources */,
@@ -324,6 +331,7 @@
 				9CF542BC21F17CEB00AED130 /* AppDelegate.swift in Sources */,
 				9CF5430021F2924E00AED130 /* Seed.swift in Sources */,
 				9C0B6D9E21F773460079CDF7 /* ZenViewController.swift in Sources */,
+				9C91CDA621F94D50005C9031 /* PauseMenu.swift in Sources */,
 				9CF5430621F52B0C00AED130 /* PlayerAccount.swift in Sources */,
 				9CF542FC21F27A6100AED130 /* Shop.swift in Sources */,
 			);

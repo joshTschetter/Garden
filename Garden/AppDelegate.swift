@@ -32,6 +32,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let potSprites = ["potSpriteKey" : ""]
         potInventorySprites.register(defaults: potSprites)
         
+        let potInventoryisPlanted = UserDefaults.standard
+        let isPlanted = ["potPlantedKey" : ""]
+        potInventoryisPlanted.register(defaults: isPlanted)
+        
         let firstTime = UserDefaults.standard
         let time = ["firstKey" : ""]
         firstTime.register(defaults: time)
