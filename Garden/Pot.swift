@@ -32,7 +32,7 @@ class Pot  {
 
     
     private var planted : Bool
-    
+    private var plantType = ""
     
     private var spriteStringName = ""
     private var potisReal : Bool
@@ -229,7 +229,7 @@ class Pot  {
        
         //proportionally positions taking into account image height gain
         newPot.addToHomeScreen(env: display, p: CGPoint(x: self.potSprite.position.x, y: self.potSprite.position.y + (newPot.potSize.y - self.potSize.y)/2), cloudPoint: cloudPoint)
-        newPot.plant()
+        newPot.plant(withSeed: getType())
         self.potSprite.removeFromParent()
         self.potLevelLabel.removeFromParent()
         for item in self.food {
@@ -276,9 +276,9 @@ class Pot  {
     }
     
     // tuple that returns the values attributed to a pot that are saved
-    func formatForSave()-> (sprite: String, level: Int, isPlanted: Bool){
+    func formatForSave()-> (sprite: String, level: Int, isPlanted: Bool, type: String){
        
-        return (spriteStringName, potLevel, planted)
+        return (spriteStringName, potLevel, planted, plantType)
     }
     
     // getters and setters
@@ -313,11 +313,22 @@ class Pot  {
         
     }
     
-    func plant(){
-        
+    func plant(withSeed: Seed){
+        plantType = withSeed.getType()
         planted = true
         
     }
+    
+    func plant(withSeed: String){
+        plantType = withSeed
+        planted = true
+    }
+    
+    func getType()-> String {
+        
+        return plantType
+    }
+    
     
     func isPlanted()-> Bool{
         
@@ -325,4 +336,19 @@ class Pot  {
         
     }
   
+    func needToPlantSeed(scene: OutdoorScene){
+        
+        if !self.planted{
+            let tempNode = SKSpriteNode(imageNamed: "mustplant")
+            let tempActionOne = SKAction.moveTo(y: 0, duration: TimeInterval(2))
+            let tempActionTwo = SKAction.fadeOut(withDuration: TimeInterval(1))
+            let tempActionSequence = SKAction.sequence([tempActionOne, tempActionTwo])
+            
+            scene.addChild(tempNode)
+            tempNode.position = potSprite.position
+            tempNode.run(tempActionSequence)
+            
+        }
+    }
+    
 }

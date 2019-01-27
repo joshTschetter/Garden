@@ -63,15 +63,16 @@ class OutdoorScene: SKScene {
     private var menuButton = SKSpriteNode(imageNamed: "menubutton")
     // temporary replacement of a combination of the pot and plant objects
     private var firstPlant = Pot(sprite: "emptypot", level: 0, isPlanted: false)
-    var succulentArray = ["sproutlingplant", "succulentone", "succulenttwo"]
+    var succulentArray = ["sproutlingplant", "succulentone", "succulenttwo", "succulentthree"]
+    var treeArray = ["treesproutling", "treeone", "treetwo" ]
     // the user's stored inventory
     private var potInventory = [Pot]()
     private var potInventorySpacer = 0
-    private var seedInventory = [Seed]()
+     var seedInventory = [Seed]()
     private var OutdoorMenu = PauseMenu()
     private var tutorial = Tutorial()
     // Creates the "Shop" for the outdoor scene
-    private var outdoorStore = Shop(itemsAvailable: [ShopItem(sprite: "seed", type: "seed" ,price: 5), ShopItem(sprite: "emptypot", type: "pot", price: 5000, potLevel: 0)], background: "outdoorstoreopaquebg", spriteReciever: "outdoorspritereciever", shopbg: "bgoutdoor2")
+    private var outdoorStore = Shop(itemsAvailable: [ShopItem(sprite: "seed", type: "treeseed" ,price: 5000), ShopItem(sprite: "emptypot", type: "pot", price: 15000, potLevel: 0)], background: "outdoorstoreopaquebg", spriteReciever: "outdoorspritereciever", shopbg: "bgoutdoor2")
     
     // distinguishes normal gameplay from shop/tutorial/menu
     private var inStore = false
@@ -100,6 +101,8 @@ class OutdoorScene: SKScene {
     var notfirstTimeLaunching = false
     var backtomainmenu = false
     
+    var seedLinePoints = [CGPoint]()
+    
     // Main function, runs once upon scene load
     override func sceneDidLoad() {
         self.addChild(waterPipe)
@@ -120,6 +123,7 @@ class OutdoorScene: SKScene {
         UserDefaults.standard.set(false , forKey: "potPlantedKey")
         UserDefaults.standard.set(0, forKey: "potLevelKey")
         UserDefaults.standard.set("", forKey: "potSpriteKey")
+        UserDefaults.standard.set("", forKey: "potTypeKey")
         tutorial.run(scene: self)
         }
         
@@ -128,7 +132,7 @@ class OutdoorScene: SKScene {
         else {
          
             
-            potInventory = initializePotInventory(sA: UserDefaults.standard.array(forKey: "potSpriteKey") as! [String], lA: UserDefaults.standard.array(forKey: "potLevelKey") as! [Int], pA: UserDefaults.standard.array(forKey: "potPlantedKey") as! [Bool])
+            potInventory = initializePotInventory(sA: UserDefaults.standard.array(forKey: "potSpriteKey") as! [String], lA: UserDefaults.standard.array(forKey: "potLevelKey") as! [Int], pA: UserDefaults.standard.array(forKey: "potPlantedKey") as! [Bool], tA: UserDefaults.standard.array(forKey: "potTypeKey") as! [String])
         
         }
      
@@ -182,7 +186,34 @@ class OutdoorScene: SKScene {
     }
     
     func touchUp(atPoint pos : CGPoint) {
-       
+     
+    }
+    
+    func createSeedLine(){
+        
+        let path = CGMutablePath()
+        path.move(to: seedLinePoints.first ?? CGPoint(x: 0, y: 0))
+        
+        for point in seedLinePoints {
+            
+            path.addLine(to: point)
+            
+        }
+        
+        let line = SKShapeNode()
+        line.path = path
+        line.fillColor = .clear
+        line.lineWidth = 0.2
+        line.strokeColor = .green
+        line.lineCap = .round
+        line.glowWidth = 5
+        self.addChild(line)
+        
+        let fade : SKAction = SKAction.fadeOut(withDuration: TimeInterval(1))
+        fade.timingMode = .easeIn
+        let remove: SKAction = SKAction.removeFromParent()
+        
+        line.run(SKAction.sequence([fade, remove]))
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -191,13 +222,17 @@ class OutdoorScene: SKScene {
     
         // sets position of that first touch to a variable
         let position = touch.location(in: self)
-        
+            
+            seedLinePoints.removeAll()
             for item in seedInventory {
-                if item.getSprite().contains(position){
+                let safeArea = CGRect(x: item.getSprite().position.x , y: item.getSprite().position.y, width: item.getSprite().size.width + 40, height: item.getSprite().size.height + 40)
+                if safeArea.contains(position){
                     item.click()
+                    seedLinePoints.append(position)
                 }
                 
             }
+          
             
         // if the user is in the normal gameplay screen
         
@@ -208,12 +243,26 @@ class OutdoorScene: SKScene {
             
             account.gainAggresively(multiplier: Double(potInventory[potDisplayed].getLevel() + 1) ,potPosition: potInventory[potDisplayed].getPosition(), potDimensions: potInventory[potDisplayed].getSize(), env: self)
             
+     
+            if potInventory[potDisplayed].getType().contains("succulent"){
             if potInventory[potDisplayed].getLevel()/10 < succulentArray.count - 1 {
                 upgradedPlant = succulentArray[potInventory[potDisplayed].getLevel()/10]
 //                account.forceClearSprite()
             }
             else {
                 upgradedPlant = succulentArray[succulentArray.count - 1]
+            }
+                
+            }
+                
+            else if potInventory[potDisplayed].getType().contains("tree"){
+            if potInventory[potDisplayed].getLevel()/10 < succulentArray.count - 1 {
+                upgradedPlant = treeArray[potInventory[potDisplayed].getLevel()/10]
+                //                account.forceClearSprite()
+            }
+            else {
+                upgradedPlant = treeArray[treeArray.count - 1]
+            }
             }
             // activates the touched function in the plant class and sets the level variable
             potInventory[potDisplayed] = potInventory[potDisplayed].tapped(nextUpgradeSprite: upgradedPlant, env: self, cloudPoint: waterPipe.position)
@@ -222,7 +271,9 @@ class OutdoorScene: SKScene {
     
             // adds one touch to the running counter
             touchCount = touchCount + 1
-        }
+        } else {
+                   potInventory[potDisplayed].needToPlantSeed(scene: self)
+            }
         //END OF SUCCULENT TOUCHED //
             if menuButton.contains(position){
                 print("menuButtonPressed")
@@ -231,7 +282,7 @@ class OutdoorScene: SKScene {
             }
         // if the store button is tapped
         if shopButton.contains(position){
-        
+        print("store clicked")
         // activates the store
         outdoorStore.activateInOutdoorScene(scene: self)
         inStore = true
@@ -265,9 +316,10 @@ class OutdoorScene: SKScene {
             }
 
         }
-         if inTutorial{
+         else if inTutorial{
             print("benchmarkone")
             tutorial.passCurrentInstruction(scene: self)
+            tutorial.exitButtonClicked(p: position, scene: self)
             if tutorial.canWater() {
                 if potInventory[potDisplayed].contains(p: position) && potInventory[potDisplayed].isPlanted(){
                     
@@ -298,7 +350,7 @@ class OutdoorScene: SKScene {
                 }
             }
             if !tutorial.inProgress(){
-                tutorial.removeFromScene()
+                tutorial.removeFromScene(scene: self)
                 inTutorial = false 
             }
         }
@@ -335,11 +387,13 @@ class OutdoorScene: SKScene {
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let position = touch.location(in: self)
-        for item in seedInventory {
-            if item.isClicked(){
-                item.getSprite().position = position
+            for item in seedInventory {
+                if item.isClicked(){
+                    item.getSprite().position = position
+                    seedLinePoints.append(position)
+                    createSeedLine()
+                }
             }
-        }
         }
         
     }
@@ -348,17 +402,20 @@ class OutdoorScene: SKScene {
       UserDefaults.standard.set(touchCount, forKey: "MyKey")
         if let touch = touches.first {
             let position = touch.location(in: self)
-            
+         
             var counter = 0
             for item in seedInventory{
-                if item.getSprite().contains(potInventory[potDisplayed].getPosition()) && item.isClicked(){
-                    potInventory[potDisplayed].plant()
+                if potInventory[potDisplayed].getPotSprite().contains(item.getSprite().position) && item.isClicked(){
+                    potInventory[potDisplayed].plant(withSeed: item)
                     item.plant(display: self)
                     seedInventory.remove(at: counter)
                     
                     if inTutorial {
                         tutorial.plantSeed(scene: self)
                     }
+                }
+                else {
+                 item.shinyNewSeed(scene: self)
                 }
                 counter = counter + 1
             }
@@ -395,6 +452,7 @@ class OutdoorScene: SKScene {
             
             account.gainPassively()
             UserDefaults.standard.set(savePotInventory().spriteArray, forKey: "potSpriteKey")
+            UserDefaults.standard.set(savePotInventory().typeArray, forKey: "potTypeKey")
             UserDefaults.standard.set(savePotInventory().levelArray, forKey: "potLevelKey")
             
         }
@@ -459,26 +517,29 @@ class OutdoorScene: SKScene {
     return potInventory
     }
     
-    func savePotInventory()-> (spriteArray: [String], levelArray: [Int], plantedArray: [Bool]){
+    func savePotInventory()-> (spriteArray: [String], levelArray: [Int], plantedArray: [Bool], typeArray: [String]){
         var sA = [String]()
         var lA = [Int]()
         var pA = [Bool]()
+        var tA = [String]()
         for item in potInventory{
             sA.append(item.formatForSave().sprite)
             lA.append(item.formatForSave().level)
             pA.append(item.formatForSave().isPlanted)
+            tA.append(item.formatForSave().type)
+            
         }
-        return (sA, lA, pA)
+        return (sA, lA, pA, tA)
     }
     
-    func initializePotInventory(sA: [String], lA: [Int], pA: [Bool])-> [Pot]{
+    func initializePotInventory(sA: [String], lA: [Int], pA: [Bool], tA: [String])-> [Pot]{
         
         var counter = 0
         var lazyPotArray = [Pot]()
         for item in sA {
             let lazyPot = Pot(sprite: item, level: lA[counter], isPlanted: pA[counter])
             if lA[counter] > 0 {
-             lazyPot.plant()
+             lazyPot.plant(withSeed: tA[counter])
             }
             lazyPotArray.append(lazyPot)
             
@@ -488,7 +549,7 @@ class OutdoorScene: SKScene {
     }
     
     func addTutorialSeed(){
-        seedInventory.append(Seed(sprite: "seed"))
+        seedInventory.append(Seed(sprite: "seed", type: "succulent"))
         seedInventory[seedInventory.count - 1].addToHomeScreen(env: self, pos: CGPoint(x: 0, y: -1000))
         seedInventory[seedInventory.count - 1].shinyNewSeed(scene: self)
     }

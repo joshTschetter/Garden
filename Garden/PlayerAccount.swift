@@ -91,7 +91,7 @@ class PlayerAccount{
         env.addChild(gainLabel)
         gainLabel.run(gainAction)
         gainLabel.run(gainAction2)
-
+        clearSprite()
         
     }
     

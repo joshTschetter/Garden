@@ -26,6 +26,8 @@ class Tutorial{
     
     private var enjoy = SKSpriteNode(imageNamed: "enjoygarden")
     
+    private var exitTutorial = SKSpriteNode(imageNamed: "exittutorial")
+    
     private var InstructionsPassed = [Bool]()
     
     private var isInProgress = false
@@ -42,6 +44,8 @@ class Tutorial{
     
     private var switchInstructions = false
     
+    private var notfirstTime = UserDefaults.standard.bool(forKey: "firstKey")
+    
     var allFirstInstructionActions = SKAction()
     
     var WelcomeExitOne = SKAction()
@@ -54,6 +58,9 @@ class Tutorial{
         
         InstructionsPassed = [FirstInstructionPassed, FirstInstructionPassed, FirstInstructionPassed, FirstInstructionPassed, FirstInstructionPassed, FirstInstructionPassed]
        
+        exitTutorial.position.y = Dimensions().screenHeight/2 - 150
+       
+        
         Welcome.zPosition = 3000
         Welcome.position.y = -Dimensions().screenHeight/2 - 200
         scene.addChild(Welcome)
@@ -92,60 +99,119 @@ class Tutorial{
         
     }
     func progress(scene: OutdoorScene){
-        print("tapped")
-        if counter == 0 {
-            firstInstruction.run(allFirstInstructionActions)
+        print("firsttutorial")
+        print(notfirstTime)
+        if notfirstTime {
             
-        }
-        if counter == 1 {
-            firstInstruction.removeAllActions()
-            firstInstruction.run(WelcomeExitOne)
-            firstInstruction.run(WelcomeExitTwo)
-            Welcome.run(WelcomeExitOne)
-            Welcome.run(WelcomeExitTwo)
-            scene.addChild(plantASeed)
-            scene.addChild(secondInstruction)
-            secondInstruction.run(SKAction.sequence([secondInstructionIntro, allFirstInstructionActions]))
-            plantASeed.run(plantSeedIntro)
-            scene.addTutorialSeed()
-        }
-        if counter == 2 {
-            plantASeed.run(WelcomeExitOne)
-            plantASeed.run(WelcomeExitTwo)
-            secondInstruction.run(WelcomeExitOne)
-            secondInstruction.run(WelcomeExitTwo)
-            canBeWatered = true
-            if tapToWater.parent == nil {
-            scene.addChild(tapToWater)
+            if counter == 0 {
+                firstInstruction.run(allFirstInstructionActions)
+                
             }
-            tapToWater.run(plantSeedIntro)
-            if switchInstructions {
-                tapToWater.run(WelcomeExitOne)
-                tapToWater.run(WelcomeExitTwo)
-                if tenTimes.parent == nil {
-                scene.addChild(tenTimes)
+            if counter == 1 {
+                firstInstruction.removeAllActions()
+                firstInstruction.run(WelcomeExitOne)
+                firstInstruction.run(WelcomeExitTwo)
+                Welcome.run(WelcomeExitOne)
+                Welcome.run(WelcomeExitTwo)
+                scene.addChild(plantASeed)
+                scene.addChild(secondInstruction)
+                secondInstruction.run(SKAction.sequence([secondInstructionIntro, allFirstInstructionActions]))
+                plantASeed.run(plantSeedIntro)
+                scene.addTutorialSeed()
+            }
+            if counter == 2 {
+                plantASeed.run(WelcomeExitOne)
+                plantASeed.run(WelcomeExitTwo)
+                secondInstruction.run(WelcomeExitOne)
+                secondInstruction.run(WelcomeExitTwo)
+                canBeWatered = true
+                if tapToWater.parent == nil {
+                    scene.addChild(tapToWater)
                 }
-                tenTimes.run(plantSeedIntro)
+                tapToWater.run(plantSeedIntro)
+                if switchInstructions {
+                    tapToWater.run(WelcomeExitOne)
+                    tapToWater.run(WelcomeExitTwo)
+                    if tenTimes.parent == nil {
+                        scene.addChild(tenTimes)
+                    }
+                    tenTimes.run(plantSeedIntro)
+                }
             }
-        }
-        if counter == 3 {
-            print("WHY")
-            if(potWatered){
-            tenTimes.run(WelcomeExitOne)
-            tenTimes.run(WelcomeExitTwo)
-            scene.addChild(enjoy)
-            enjoy.run(plantSeedIntro)
+            if counter == 3 {
+                print("WHY")
+                if(potWatered){
+                    tenTimes.run(WelcomeExitOne)
+                    tenTimes.run(WelcomeExitTwo)
+                    scene.addChild(enjoy)
+                    enjoy.run(plantSeedIntro)
+                }
             }
-        }
-        if counter == 4 {
-            enjoy.run(WelcomeExitOne)
-            enjoy.run(WelcomeExitTwo)
-            isInProgress = false
+            if counter == 10 {
+                enjoy.run(WelcomeExitOne)
+                enjoy.run(WelcomeExitTwo)
+                
+            }
+            if counter == 20 {
+                isInProgress = false
+                notfirstTime = false 
+                
+            }
+    }
+        else if !notfirstTime{
+            print ("repeated tutorial")
+            print(notfirstTime)
+            if exitTutorial.parent == nil {
+                scene.addChild(exitTutorial)
+            }
+            if counter == 0 {
+                firstInstruction.run(allFirstInstructionActions)
+                
+            }
+            
+            if counter == 1 {
+                plantASeed.run(WelcomeExitOne)
+                plantASeed.run(WelcomeExitTwo)
+                secondInstruction.run(WelcomeExitOne)
+                secondInstruction.run(WelcomeExitTwo)
+                canBeWatered = true
+                if tapToWater.parent == nil {
+                    scene.addChild(tapToWater)
+                }
+                tapToWater.run(plantSeedIntro)
+                if switchInstructions {
+                    tapToWater.run(WelcomeExitOne)
+                    tapToWater.run(WelcomeExitTwo)
+                    if tenTimes.parent == nil {
+                        scene.addChild(tenTimes)
+                    }
+                    tenTimes.run(plantSeedIntro)
+                }
+            }
+            if counter == 2 {
+                print("WHY")
+                if(potWatered){
+                    tenTimes.run(WelcomeExitOne)
+                    tenTimes.run(WelcomeExitTwo)
+                    scene.addChild(enjoy)
+                    enjoy.run(plantSeedIntro)
+                }
+            }
+            if counter == 3 {
+                enjoy.run(WelcomeExitOne)
+                enjoy.run(WelcomeExitTwo)
+                
+            }
+            if counter == 5 {
+                isInProgress = false
+                
+            }
         }
     }
     
     func passCurrentInstruction(scene: OutdoorScene){
         print("benchmarktwo")
+        if notfirstTime {
         if counter == 1 {
             if seedPlanted{
               counter = counter + 1
@@ -168,6 +234,10 @@ class Tutorial{
             progress(scene: scene)
         }
         
+    } else if !notfirstTime{
+            counter = counter + 1
+            progress(scene: scene)
+    }
     }
     func switchInstrucs(scene: OutdoorScene){
         print("othercheck")
@@ -189,16 +259,35 @@ class Tutorial{
         counter = counter + 1
         progress(scene: scene)
     }
-    func removeFromScene(){
-        counter = 0 
+    
+    func removeFromScene(scene: OutdoorScene){
+        counter = 0
+        scene.seedInventory.removeAll()
         Welcome.removeFromParent()
+        exitTutorial.removeFromParent()
         firstInstruction.removeFromParent()
         plantASeed.removeFromParent()
         secondInstruction.removeFromParent()
         tapToWater.removeFromParent()
         tenTimes.removeFromParent()
         enjoy.removeFromParent()
+        FirstInstructionPassed = false
+        seedPlanted = false
+        potWatered = false
+        canBeWatered = false
+        switchInstructions = false
+        isInProgress = false
     }
+    func exitButtonClicked (p: CGPoint, scene: OutdoorScene){
+        
+        if exitTutorial.contains(p){
+            removeFromScene(scene: scene)
+        }
+        
+        
+    }
+    
+
     func canWater()-> Bool {
         return canBeWatered
     }

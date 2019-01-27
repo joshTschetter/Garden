@@ -25,6 +25,7 @@ class ShopItem {
     
     private var associatedPotValue : Int
     
+    
     init (sprite: String, type: String, price: Double){
         
         self.itemSprite = SKSpriteNode(imageNamed: sprite)

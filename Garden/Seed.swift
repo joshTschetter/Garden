@@ -17,19 +17,23 @@ class Seed{
     
     private var seedisReal : Bool
     
+    private var seedType : String
+    
     var clicked = false
     
-    init (sprite: String) {
+    init (sprite: String, type: String) {
         
         seedSprite = SKSpriteNode(imageNamed: sprite)
         spriteName = sprite
         seedisReal = true
+        seedType = type
     }
     
     init(fake: Bool){
         seedSprite = SKSpriteNode(imageNamed: "")
         spriteName = ""
         seedisReal = false
+        seedType = "" 
     }
     
     func getSpriteName()-> String {
@@ -94,5 +98,10 @@ class Seed{
         seedSprite.run(SEEDDROP)
         seedSprite.run(SKAction.repeatForever(tantalizingAction))
         
+    }
+    
+    func getType()-> String {
+        
+        return seedType
     }
 }

@@ -61,6 +61,7 @@ class Shop {
     // function called when "shop" button is clicked
     func activateInOutdoorScene(scene: OutdoorScene){
         
+        print("Store activated")
         // formatting the background to the screen size
         scene.addChild(shopBackground)
         shopBackground.size.width = Dimensions().screenWidth
@@ -167,8 +168,8 @@ class Shop {
         for item in itemsForSale {
             if item.getSprite().contains(touch){
                 if item.getPrice() < currentBalance{
-                if item.getType() == "seed" {
-                    return (Seed(sprite: item.getImageName()), currentBalance - item.getPrice())
+                if item.getType().contains("seed") {
+                    return (Seed(sprite: item.getImageName(), type: item.getType()), currentBalance - item.getPrice())
                 }
                 }
             }
