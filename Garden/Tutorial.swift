@@ -160,6 +160,7 @@ class Tutorial{
     }
         else if !notfirstTime{
             print ("repeated tutorial")
+            print(counter)
             print(notfirstTime)
             if exitTutorial.parent == nil {
                 scene.addChild(exitTutorial)
@@ -189,20 +190,19 @@ class Tutorial{
                 }
             }
             if counter == 2 {
-                print("WHY")
-                if(potWatered){
+            
                     tenTimes.run(WelcomeExitOne)
                     tenTimes.run(WelcomeExitTwo)
                     scene.addChild(enjoy)
                     enjoy.run(plantSeedIntro)
-                }
+                
             }
             if counter == 3 {
                 enjoy.run(WelcomeExitOne)
                 enjoy.run(WelcomeExitTwo)
                 
             }
-            if counter == 5 {
+            if counter == 10 {
                 isInProgress = false
                 
             }

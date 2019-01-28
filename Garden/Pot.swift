@@ -104,7 +104,7 @@ class Pot  {
         
         // adds the labelNode
         env.addChild(potLevelLabel)
-        potLevelLabel.position = CGPoint(x: potSprite.position.x, y: potSprite.position.y - potSize.y/4)
+        potLevelLabel.position = CGPoint(x: potSprite.position.x, y: potSprite.position.y - potSize.y/2 + 30)
         potLevelLabel.zPosition = 50
         potLevelLabel.fontSize = 45
         potLevelLabel.fontColor = .cyan

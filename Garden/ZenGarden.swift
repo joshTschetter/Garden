@@ -13,9 +13,11 @@ import AudioToolbox
 class ZenGarden: SKScene {
     var background = SKSpriteNode(imageNamed: "mainmenubg")
     
-    var pipe = SKSpriteNode(imageNamed: "pipe")
+    var pipe = SKSpriteNode(imageNamed: "zenpipe")
     
-    var pot = SKSpriteNode(imageNamed: "sproutlingplant")
+    var cups = [SKSpriteNode(imageNamed: "zg"), SKSpriteNode(imageNamed: "zg1"), SKSpriteNode(imageNamed: "zg2"), SKSpriteNode(imageNamed: "zg3"), SKSpriteNode(imageNamed: "zg4"), SKSpriteNode(imageNamed: "zg5"), SKSpriteNode(imageNamed: "zg6"), SKSpriteNode(imageNamed: "zg7"), SKSpriteNode(imageNamed: "zg8"), SKSpriteNode(imageNamed: "zg9"), SKSpriteNode(imageNamed: "zg10"), SKSpriteNode(imageNamed: "zg11"), SKSpriteNode(imageNamed: "zg12"), SKSpriteNode(imageNamed: "zg13"), SKSpriteNode(imageNamed: "zg14"), SKSpriteNode(imageNamed: "zg15")]
+    
+    var onCup = 0
     
     var menuGardenButton = SKSpriteNode(imageNamed: "menubutton")
     
@@ -26,11 +28,12 @@ class ZenGarden: SKScene {
         background.position = CGPoint(x: 0, y: 0)
         background.size = CGSize(width: Dimensions().screenWidth, height: Dimensions().screenHeight)
         background.zPosition = -1
+        pipe.zPosition = 100
         pipe.position = CGPoint(x: 0, y: Dimensions().screenHeight/2 - 40)
-        pot.position = CGPoint(x: 0, y: -Dimensions().screenHeight/2 + 100)
+        cups[onCup].position = CGPoint(x: 0, y: -Dimensions().screenHeight/2 + 150)
         menuGardenButton.position = CGPoint(x: 0 + Dimensions().screenWidth/2 - 60, y: Dimensions().screenHeight/2 - 85)
         self.addChild(pipe)
-        self.addChild(pot)
+        self.addChild(cups[onCup])
         self.addChild(menuGardenButton)
         self.addChild(background)
         
@@ -50,12 +53,18 @@ class ZenGarden: SKScene {
             if menuGardenButton.contains(position){
               menuButton = true
             }
-            if pot.contains(position){
-                let tapFeedbacka = SKAction.scale(by: 0.5, duration: TimeInterval(0.125))
-
+            if cups[onCup].contains(position){
+                
+                
+                let raindrop = SKSpriteNode(imageNamed: "water")
+                let waterfalling = SKAction.moveTo(y: cups[onCup].position.y - cups[onCup].size.height/2 + 50, duration: TimeInterval(1))
+                let removal = SKAction.removeFromParent()
+                raindrop.position = CGPoint(x: 0, y: Dimensions().screenHeight/2)
+                self.addChild(raindrop)
+                raindrop.run(SKAction.sequence([waterfalling, removal]))
                 AudioServicesPlaySystemSound(1519)
                 // run squishing animation
-                pot.run(tapFeedbacka)
+     
         
                 tapped = true
             }
@@ -70,9 +79,12 @@ class ZenGarden: SKScene {
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if tapped {
-            let tapFeedbackb = SKAction.scale(by: 2 , duration: TimeInterval(0.125))
+            let removal = SKAction.removeFromParent()
             
-            pot.run(tapFeedbackb)
+            
+            cups[onCup].run(removal)
+            
+            fillCup()
             
             
             tapped = false 
@@ -94,6 +106,20 @@ class ZenGarden: SKScene {
         
     }
     
+    
+    func fillCup(){
+        
+        if onCup + 1 < cups.count {
+              onCup = onCup + 1
+        }
+        else {
+            onCup = 0
+        }
+        cups[onCup].zPosition = 100
+        cups[onCup].position = CGPoint(x: 0, y: -Dimensions().screenHeight/2 + 150)
+        self.addChild(cups[onCup])
+        
+    }
 }
 
 

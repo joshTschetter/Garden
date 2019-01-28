@@ -64,7 +64,7 @@ class OutdoorScene: SKScene {
     // temporary replacement of a combination of the pot and plant objects
     private var firstPlant = Pot(sprite: "emptypot", level: 0, isPlanted: false)
     var succulentArray = ["sproutlingplant", "succulentone", "succulenttwo", "succulentthree"]
-    var treeArray = ["treesproutling", "treeone", "treetwo" ]
+    var treeArray = ["treesproutling", "treeone", "treetwo", "treethree", "treefour", "treefive"]
     // the user's stored inventory
     private var potInventory = [Pot]()
     private var potInventorySpacer = 0
@@ -72,7 +72,7 @@ class OutdoorScene: SKScene {
     private var OutdoorMenu = PauseMenu()
     private var tutorial = Tutorial()
     // Creates the "Shop" for the outdoor scene
-    private var outdoorStore = Shop(itemsAvailable: [ShopItem(sprite: "seed", type: "treeseed" ,price: 5000), ShopItem(sprite: "emptypot", type: "pot", price: 15000, potLevel: 0)], background: "outdoorstoreopaquebg", spriteReciever: "outdoorspritereciever", shopbg: "bgoutdoor2")
+    private var outdoorStore = Shop(itemsAvailable: [ShopItem(sprite: "succulentseed", type: "succulentseed" ,price: 5000), ShopItem(sprite: "emptypot", type: "pot", price: 15000, potLevel: 0), ShopItem(sprite: "treeseed", type: "treeseed", price: 10000)], background: "outdoorstoreopaquebg", spriteReciever: "outdoorspritereciever", shopbg: "bgoutdoor2")
     
     // distinguishes normal gameplay from shop/tutorial/menu
     private var inStore = false
@@ -83,10 +83,8 @@ class OutdoorScene: SKScene {
     
     private var waterPipe = SKSpriteNode(imageNamed: "cloud")
     
-    private var rightClicker = SKSpriteNode(imageNamed: "rightarrow")
     
-    private var leftClicker = SKSpriteNode(imageNamed: "leftarrow")
-    
+    private var pedestal = SKSpriteNode(imageNamed: "pedestal")
     // Collection of variables having to do with the user
     
     // potDisplayed annotates which pot is currently centered onscreen
@@ -109,11 +107,12 @@ class OutdoorScene: SKScene {
         waterPipe.position =  CGPoint(x: 0 , y: 0 + Dimensions().screenHeight/2 - 75)
         waterPipe.zPosition = 100
         // Loads and resaves the saved "Progress" of the player.
-        
+        self.addChild(pedestal)
+        pedestal.position = CGPoint(x: 0, y: -Dimensions().screenHeight/2 + pedestal.size.height/2)
         
         touchCount = UserDefaults.standard.integer(forKey: "TapKey")
         
-//        notfirstTimeLaunching = UserDefaults.standard.bool(forKey: "firstKey")
+        notfirstTimeLaunching = UserDefaults.standard.bool(forKey: "firstKey")
         print(notfirstTimeLaunching)
         
         // protocol for first launch
@@ -144,7 +143,7 @@ class OutdoorScene: SKScene {
         // adds the water progress bar to self in the display.
         var spacer = 0
         for item in potInventory {
-            item.addToHomeScreen(env: self, p: CGPoint(x: CGFloat(0 + spacer * 200) , y: 0 - Dimensions().screenHeight/2 + 150), cloudPoint: waterPipe.position)
+            item.addToHomeScreen(env: self, p: CGPoint(x: CGFloat(0 + spacer * 200) , y: pedestal.position.y + pedestal.size.height/2 + item.getPotSprite().size.height/2 - 4), cloudPoint: waterPipe.position)
             spacer = spacer + 1
         }
         // sprite formatting
@@ -159,15 +158,6 @@ class OutdoorScene: SKScene {
         self.addChild(shopButton)
         shopButton.position = CGPoint(x: 0 - Dimensions().screenWidth/2 + 60, y: Dimensions().screenHeight/2 - 85)
         
-       
-        
-        self.addChild(rightClicker)
-        rightClicker.position = CGPoint(x: 100, y: 0 - Dimensions().screenHeight/2 + 75)
-        rightClicker.zPosition = 100
-        
-        self.addChild(leftClicker)
-        leftClicker.position = CGPoint(x: -100, y: 0 - Dimensions().screenHeight/2 + 75)
-        leftClicker.zPosition = 100
         account.addBalanceSprite(env: self)
         
 
@@ -225,8 +215,8 @@ class OutdoorScene: SKScene {
             
             seedLinePoints.removeAll()
             for item in seedInventory {
-                let safeArea = CGRect(x: item.getSprite().position.x , y: item.getSprite().position.y, width: item.getSprite().size.width + 40, height: item.getSprite().size.height + 40)
-                if safeArea.contains(position){
+      
+                if item.getSprite().contains(position){
                     item.click()
                     seedLinePoints.append(position)
                 }
@@ -271,7 +261,7 @@ class OutdoorScene: SKScene {
     
             // adds one touch to the running counter
             touchCount = touchCount + 1
-        } else {
+        } else if potInventory[potDisplayed].contains(p: position){
                    potInventory[potDisplayed].needToPlantSeed(scene: self)
             }
         //END OF SUCCULENT TOUCHED //
@@ -288,12 +278,7 @@ class OutdoorScene: SKScene {
         inStore = true
         }
         // END OF SHOP BUTTON TOUCHED //
-            if rightClicker.contains(position){
-                shiftRight(spacer: potInventorySpacer)
-            }
-            if leftClicker.contains(position){
-                shiftLeft(spacer: potInventorySpacer)
-            }
+    
         // END OF IN NORMAL GAMEPLAY TOUCHES //
             }
         else if inMenu {
@@ -302,12 +287,7 @@ class OutdoorScene: SKScene {
                 inMenu = false
                 OutdoorMenu.removeFromScene()
             }
-          inTutorial = OutdoorMenu.tutorialActivated(p: position)
-            if inTutorial {
-                  tutorial.run(scene: self)
-                  inMenu = false
-                  OutdoorMenu.removeFromScene()
-            }
+        
            
           backtomainmenu =  OutdoorMenu.backToMenuClicked(p: position)
             if backtomainmenu {
@@ -365,7 +345,7 @@ class OutdoorScene: SKScene {
             if outdoorStore.potPurchaseCheck(touch: position, currentBalance: Double(account.balance())).purchasedPot.isReal(){
                 potInventory.append(outdoorStore.potPurchaseCheck(touch: position, currentBalance: Double(account.balance())).purchasedPot)
                 account.setBalance(newBalance: Int(outdoorStore.potPurchaseCheck(touch: position, currentBalance: Double(account.balance())).newAccountBalance))
-                potInventory[potInventory.count-1].addToHomeScreen(env: self, p: CGPoint(x: potInventory[potInventory.count - 2].getPosition().x + CGFloat(potInventorySpacer), y: 0 - Dimensions().screenHeight/2 + 150) , cloudPoint: waterPipe.position)
+                potInventory[potInventory.count-1].addToHomeScreen(env: self, p: CGPoint(x: potInventory[potInventory.count - 2].getPosition().x + CGFloat(potInventorySpacer), y: pedestal.position.y + pedestal.size.height/2 +  potInventory[potInventory.count-1].getPotSprite().size.height/2 - 4) , cloudPoint: waterPipe.position)
                 
                 outdoorStore.deactivate()
                 inStore = false
@@ -549,7 +529,7 @@ class OutdoorScene: SKScene {
     }
     
     func addTutorialSeed(){
-        seedInventory.append(Seed(sprite: "seed", type: "succulent"))
+        seedInventory.append(Seed(sprite: "succulentseed", type: "succulent"))
         seedInventory[seedInventory.count - 1].addToHomeScreen(env: self, pos: CGPoint(x: 0, y: -1000))
         seedInventory[seedInventory.count - 1].shinyNewSeed(scene: self)
     }

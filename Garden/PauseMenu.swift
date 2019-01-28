@@ -15,7 +15,7 @@ class PauseMenu{
     
     private var MainMenuButton = SKSpriteNode(imageNamed: "returntomainmenu")
     
-    private var replayTutorial = SKSpriteNode(imageNamed: "tutorialreplay")
+
     
     func addToScene(scene: OutdoorScene){
         
@@ -27,15 +27,13 @@ class PauseMenu{
         MainMenuButton.position = CGPoint(x: 0 , y: PauseMenu.position.y - PauseMenu.size.height/4)
         scene.addChild(MainMenuButton)
         
-        replayTutorial.zPosition = 1001000000
-        replayTutorial.position = CGPoint(x: 0, y: MainMenuButton.position.y + 100)
-        scene.addChild(replayTutorial)
+
     }
     
     func removeFromScene(){
         PauseMenu.removeFromParent()
         MainMenuButton.removeFromParent()
-        replayTutorial.removeFromParent()
+
         
     }
     func isMenuClicked(p: CGPoint)-> Bool {
@@ -44,7 +42,5 @@ class PauseMenu{
     func backToMenuClicked(p: CGPoint)-> Bool{
         return MainMenuButton.contains(p)
     }
-    func tutorialActivated(p: CGPoint)-> Bool{
-        return replayTutorial.contains(p)
-    }
+    
 }
